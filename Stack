@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(new MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: HomePage(), debugShowCheckedModeBanner: false);
+  }
+}
+
+class HomePage extends StatelessWidget {
+  final _foto1 =
+      'https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2014/11/71519-playstation.jpg?itok=wRmdgZkt';
+  final _foto2 =
+      'https://upload.wikimedia.org/wikipedia/commons/6/69/7-78049_small-memory-8k-wallpaper-forest-minimalist-wallpaper-4k.jpg';
+  final txtStyle1 = TextStyle(color: Colors.white, fontSize: 50.0);
+  final txtStyle2 = TextStyle(color: Colors.white, fontSize: 30.0);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: PageView(scrollDirection: Axis.vertical, children: <Widget>[
+      _pagina(
+          url: _foto1,
+          t1: '5º Febrero',
+          t2: 'Viernes',
+          icon: Icons.keyboard_arrow_down),
+      _pagina(
+          url: _foto2,
+          t1: 'UTP Puebla',
+          t2: '2021',
+          icon: Icons.keyboard_arrow_up)
+    ]));
+  }
+
+  Widget _pagina({String url, String t1, String t2, IconData icon}) {
+    return Stack(children: <Widget>[
+      _fondo(imagen: url),
+      _contenido(t1: t1, t2: t2, icon: icon)
+    ]);
+  }
+
+  Widget _fondo({String imagen}) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Image(image: NetworkImage(imagen), fit: BoxFit.cover),
+    );
+  }
+
+  Widget _contenido({String t1, String t2, IconData icon}) {
+    return SafeArea(
+        child: Column(children: <Widget>[
+      SizedBox(height: 50.0),
+      Text(t1, style: txtStyle1),
+      Text(t2, style: txtStyle2),
+      Expanded(child: Container()),
+      Icon(icon, size: 70.0, color: Colors.pinkAccent)
+    ]));
+  }
+}
